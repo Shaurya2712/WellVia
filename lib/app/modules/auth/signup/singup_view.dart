@@ -1,164 +1,213 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:wellvia/app/modules/auth/signup/singup_controller.dart';
+import 'signup_controller.dart';
+import 'package:wellvia/app/core/utils/global_widgets/otp_dialog.dart';
+import 'package:wellvia/app/core/constants/colors.dart';
 
 class SignUpView extends GetView<SignUpController> {
   const SignUpView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () => Get.back(),
-        ),
-        title: Text('signup_title'.tr, style: TextStyle(    fontWeight: FontWeight.bold,), ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-      ),
+      // appBar: AppBar(
+      //   leading: IconButton(
+      //     icon: const Icon(Icons.arrow_back_ios, color: Colors.black87),
+      //     onPressed: () => Get.back(),
+      //   ),
+      //   title: Text(
+      //     'signup_title'.tr,
+      //     style: const TextStyle(
+      //       fontWeight: FontWeight.w700,
+      //       fontSize: 25,
+      //       color: Colors.black87,
+      //     ),
+      //   ),
+      //   centerTitle: false,
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0,
+      // ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Header
+              Text(
+                'Create Account',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+              Text(
+                'Sign up to get started',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey[600],
+                ),
+              ),
+              const SizedBox(height: 16),
 
-              // Name input
+              // Name Input
               Text(
                 'signup_enter_name'.tr,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              Obx(
-                    () => TextFormField(
-                  onChanged: (value) {
-                    controller.nameTouched.value = true;
-                    controller.name.value = value;
-                  },
-                  decoration: InputDecoration(
-                    hintText: 'signup_hint_name'.tr,
-                    prefixIcon: const Icon(Icons.person),
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                    errorText: controller.nameTouched.value && !controller.isNameValid
-                        ? 'signup_error_name'.tr
-                        : null,
-                  ),
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
                 ),
               ),
+              const SizedBox(height: 8),
+              Obx(() => TextFormField(
+                onChanged: (value) {
+                  controller.nameTouched.value = true;
+                  controller.name.value = value;
+                },
+                decoration: InputDecoration(
+                  hintText: 'signup_hint_name'.tr,
+                  hintStyle: TextStyle(color: Colors.grey[400]),
+                  prefixIcon: Icon(Icons.person, color: Colors.grey[600]),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[300]!, width: 1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Color(0xFFed6b87), width: 2),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.red, width: 1),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.red, width: 2),
+                  ),
+                  errorText: controller.nameTouched.value && !controller.isNameValid
+                      ? 'signup_error_name'.tr
+                      : null,
+                ),
+              )),
+              const SizedBox(height: 16),
 
-              const SizedBox(height: 10),
-
-// Mobile number input
+              // Mobile Number Input with Fixed +91
               Text(
                 'signup_enter_mobile'.tr,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              Obx(
-                    () => TextFormField(
-                  onChanged: (value) {
-                    controller.mobileTouched.value = true;
-                    controller.mobileNumber.value = value;
-                  },
-                  keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(
-                    hintText: 'signup_hint_mobile'.tr,
-                    prefixIcon: const Icon(Icons.phone_android),
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                    errorText: controller.mobileTouched.value && !controller.isMobileNumberValid
-                        ? 'signup_error_mobile'.tr
-                        : null,
-                  ),
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
                 ),
               ),
-
-              const SizedBox(height: 10),
-
-// OTP input
-              Text(
-                'signup_enter_otp'.tr,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
               const SizedBox(height: 8),
-              Obx(
-                    () => TextFormField(
-                  onChanged: (value) {
-                    controller.otpTouched.value = true;
-                    controller.otp.value = value;
-                  },
-                  obscureText: !controller.showOtp.value,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: 'signup_hint_otp'.tr,
-                    prefixIcon: const Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        controller.showOtp.value ? Icons.visibility : Icons.visibility_off,
+              Obx(() => TextFormField(
+                maxLength: 10,
+                onChanged: (value) {
+                  controller.mobileTouched.value = true;
+                  controller.mobileNumber.value = value;
+                },
+                keyboardType: TextInputType.phone,
+                decoration: InputDecoration(
+                  hintText: 'signup_hint_mobile'.tr,
+                  hintStyle: TextStyle(color: Colors.grey[400]),
+                  prefixIcon: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, right: 8),
+                        child: Icon(Icons.phone, size: 20, color: Colors.grey[600]),
                       ),
-                      onPressed: () => controller.showOtp.value = !controller.showOtp.value,
-                    ),
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                    errorText: controller.otpTouched.value && !controller.isOtpValid
-                        ? 'signup_error_otp'.tr
-                        : null,
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: Text(
+                          '+91',
+                          style: TextStyle(fontSize: 14, color: Colors.grey[800]),
+                        ),
+                      ),
+                    ],
                   ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[300]!, width: 1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Color(0xFFed6b87), width: 2),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.red, width: 1),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.red, width: 2),
+                  ),
+                  errorText: controller.mobileTouched.value && !controller.isMobileNumberValid
+                      ? 'signup_error_mobile'.tr
+                      : null,
                 ),
-              ),
+              )),
 
-
-              // Terms and conditions
+              // Terms and Conditions
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Obx(
-                    () => Checkbox(
+                  Obx(() => AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 200),
+                    child: Checkbox(
+                      key: ValueKey<bool>(controller.termsAccepted.value),
                       value: controller.termsAccepted.value,
-                      onChanged:
-                          (bool? value) =>
-                              controller.termsAccepted.value = value ?? false,
+                      onChanged: (bool? value) => controller.termsAccepted.value = value ?? false,
+                      activeColor: const Color(0xFFed6b87),
                     ),
-                  ),
+                  )),
                   Expanded(
                     child: RichText(
                       text: TextSpan(
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                        ),
+                        style: TextStyle(color: Colors.grey[600], fontSize: 13),
                         children: [
                           TextSpan(text: 'signup_terms_one'.tr),
                           TextSpan(
                             text: 'signup_terms_two'.tr,
                             style: const TextStyle(
-                              color: Color(0xFFee6b87),
-                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFed6b87),
+                              fontWeight: FontWeight.w600,
                             ),
-                            recognizer:
-                                TapGestureRecognizer()
-                                  ..onTap = () {
-                                    // TODO: Navigate to Terms of Service screen
-                                    print("Terms of Service clicked");
-                                  },
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                print("Terms of Service clicked");
+                              },
                           ),
                           TextSpan(text: 'signup_terms_three'.tr),
                           TextSpan(
                             text: 'signup_terms_four'.tr,
                             style: const TextStyle(
-                              color: Color(0xFFee6b87),
-                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFed6b87),
+                              fontWeight: FontWeight.w600,
                             ),
-                            recognizer:
-                                TapGestureRecognizer()
-                                  ..onTap = () {
-                                    // TODO: Navigate to Privacy Policy screen
-                                    print("Privacy Policy clicked");
-                                  },
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                print("Privacy Policy clicked");
+                              },
                           ),
                         ],
                       ),
@@ -166,133 +215,149 @@ class SignUpView extends GetView<SignUpController> {
                   ),
                 ],
               ),
+              const SizedBox(height: 16),
 
-              const SizedBox(height: 20),
-
-              // Sign Up button
+              // Sign Up Button
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: controller.signUp,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFed6b87),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30), // Pill shape
-                    ),
+                    backgroundColor: AppColors.primaryPink ,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    elevation: 2,
+                    shadowColor: Colors.black26,
                   ),
                   child: Text(
                     'signup_button'.tr,
-                    style: const TextStyle(color: Colors.white, fontSize: 18),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),
+              const SizedBox(height: 12),
 
-              const SizedBox(height: 10),
-
-              // Already have an account
+              // Already Have an Account
               Center(
                 child: RichText(
                   text: TextSpan(
-                    style: const TextStyle(fontSize: 16, color: Colors.black),
+                    style: TextStyle(fontSize: 14, color: Colors.grey[800]),
                     children: [
+                      TextSpan(text: 'signup_have_account_prefix'.tr),
                       TextSpan(
-                        text: 'signup_have_account_prefix'.tr,
-                      ), // Example: "Already have an account? "
-                      TextSpan(
-                        text:
-                            'signup_have_account_action'
-                                .tr, // Example: "Log in"
-                        style: const TextStyle(
-                          color: Color(0xFF59b1de),
-                          fontWeight: FontWeight.bold,
+                        text: 'signup_have_account_action'.tr,
+                        style:  TextStyle(
+                          color: AppColors.primaryPink ,
+                          fontWeight: FontWeight.w600,
                         ),
-                        recognizer:
-                            TapGestureRecognizer()
-                              ..onTap = () {
-                                // Navigate to login screen
-                                print("Navigate to Login");
-                              },
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Get.toNamed('/login');
+                          },
                       ),
                     ],
                   ),
                 ),
               ),
-
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
 
               // Divider
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Expanded(child: Divider()),
+                  Expanded(
+                    child: Divider(color: Colors.grey[300]),
+                  ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Text(
                       'signup_or'.tr,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12,
+                        color: Colors.grey[600],
                       ),
                     ),
                   ),
-                  const Expanded(child: Divider()),
+                  Expanded(
+                    child: Divider(color: Colors.grey[300]),
+                  ),
                 ],
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
 
               // Google Sign Up
               SizedBox(
                 width: double.infinity,
-                child: OutlinedButton.icon(
-                  onPressed: () {
-                    // Handle Google sign up
-                  },
+                child: OutlinedButton(
+                  onPressed: () => controller.signupWithSocial('google'),
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: Colors.grey),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    backgroundColor: Colors.transparent,
+                    side: BorderSide(color: Colors.grey[300]!),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    backgroundColor: Colors.white,
+                    elevation: 1,
                   ),
-                  icon: Image.asset(
-                    'assets/images/google_icon.png',
-                    height: 20,
-                    width: 20,
-                  ),
-                  label: Text(
-                    'signup_google'.tr,
-                    style: const TextStyle(color: Colors.black, fontSize: 17),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Image.asset('assets/images/google_icon.png', height: 18, width: 18),
+                        ),
+                      ),
+                      Text(
+                        'signup_google'.tr,
+                        style: TextStyle(
+                          color: Colors.grey[800],
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-
-              const SizedBox(height: 20),
+              const SizedBox(height: 12),
 
               // Facebook Sign Up
               SizedBox(
                 width: double.infinity,
-                child: OutlinedButton.icon(
-                  onPressed: () {
-                    // Handle Facebook sign up
-                  },
+                child: OutlinedButton(
+                  onPressed: () => controller.signupWithSocial('facebook'),
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: Colors.grey),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    backgroundColor: Colors.transparent,
+                    side: BorderSide(color: Colors.grey[300]!),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    backgroundColor: Colors.white,
+                    elevation: 1,
                   ),
-                  icon: Image.asset(
-                    'assets/images/facebook_icon.png',
-                    height: 20,
-                    width: 20,
-                  ),
-                  label: Text(
-                    'signup_facebook'.tr,
-                    style: const TextStyle(color: Colors.black, fontSize: 17),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Image.asset('assets/images/facebook_icon.png', height: 18, width: 18),
+                        ),
+                      ),
+                      Text(
+                        'signup_facebook'.tr,
+                        style: TextStyle(
+                          color: Colors.grey[800],
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

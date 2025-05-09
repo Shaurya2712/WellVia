@@ -1,66 +1,79 @@
-name: wellvia
-description: "WellVia Flutter project."
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.0+1
+  name: wellvia
+  description: "WellVia Flutter project."
+  publish_to: 'none'
+  version: 1.0.0+1
 
-environment:
-  sdk: ^3.7.2
+  environment:
+    sdk: ">=3.3.0 <4.0.0"
 
-dependencies:
+  dependencies:
+    flutter:
+      sdk: flutter
+    cupertino_icons: ^1.0.8
+    get: ^4.7.2
+    phonepe_payment_sdk: ^3.0.0
+    carousel_slider: ^5.0.0
+    font_awesome_flutter: ^10.8.0
+    google_sign_in: ^6.3.0
+    flutter_facebook_auth: ^7.1.2
+    firebase_core: ^3.13.0
+    firebase_auth: ^5.5.3
+    intl_phone_field: ^3.2.0
+    shimmer: ^3.0.0
+    shared_preferences: ^2.2.2
+    flutter_launcher_icons: ^0.14.3
+    dio: ^5.4.0
+
+  dev_dependencies:
+    flutter_test:
+      sdk: flutter
+    flutter_lints: ^5.0.0
+
   flutter:
-    sdk: flutter
+    uses-material-design: true
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
-  #GETX
-  get: ^4.7.2
-  #PHONE PAY
-  phonepe_payment_sdk: ^3.0.0
-  # carousal for images
-  carousel_slider: ^5.0.0
-  font_awesome_flutter: ^10.8.0
+    assets:
+      - assets/images/logo_demo.png
+      - assets/images/demo_1.jpg
+      - assets/images/demo_2.jpg
+      - assets/images/demo_3.jpg
+      - assets/images/facebook_icon.png
+      - assets/images/google_icon.png
+      - assets/images/Wellvia-Health-Final-Logo.png
+      - assets/icon/logo_icon_512.png
+      - assets/icon/logo_icon_1024.png
 
+  flutter_launcher_icons:
+    android: "launcher_icon"
+    ios: true
+    image_path_android: "assets/icon/logo_icon_512.png"
+    image_path_ios: "assets/icon/logo_icon_1024.png"
+    min_sdk_android: 21
+    adaptive_icon_background: "#FFFFFF"
+    adaptive_icon_foreground: "assets/icon/logo_icon_512.png"
 
+    # An image asset can refer to one or more resolution-specific "variants", see
+    # https://flutter.dev/to/resolution-aware-images
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^5.0.0
+    # For details regarding adding assets from package dependencies, see
+    # https://flutter.dev/to/asset-from-package
 
-flutter:
-  uses-material-design: true
-
-  assets:
-    - assets/images/logo_demo.png
-    - assets/images/demo_1.jpg
-    - assets/images/demo_2.jpg
-    - assets/images/demo_3.jpg
-    - assets/images/facebook_icon.png
-    - assets/images/google_icon.png
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/to/resolution-aware-images
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/to/asset-from-package
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/to/font-from-package
+    # To add custom fonts to your application, add a fonts section here,
+    # in this "flutter" section. Each entry in this list should have a
+    # "family" key with the font family name, and a "fonts" key with a
+    # list giving the asset and other descriptors for the font. For
+    # example:
+    # fonts:
+    #   - family: Schyler
+    #     fonts:
+    #       - asset: fonts/Schyler-Regular.ttf
+    #       - asset: fonts/Schyler-Italic.ttf
+    #         style: italic
+    #   - family: Trajan Pro
+    #     fonts:
+    #       - asset: fonts/TrajanPro.ttf
+    #       - asset: fonts/TrajanPro_Bold.ttf
+    #         weight: 700
+    #
+    # For details regarding fonts from package dependencies,
+    # see https://flutter.dev/to/font-from-package

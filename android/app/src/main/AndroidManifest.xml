@@ -1,8 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="wellvia"
+        android:label="WellVia Health"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -20,6 +22,17 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
+
+            <!-- Add the meta-data for the API key -->
+            <meta-data
+                android:name="com.google.android.gms.auth.api.signin.API_KEY"
+                android:value="@string/google_api_key" /> <!-- API key stored in strings.xml -->
+
+            <!-- Google sign-in -->
+            <meta-data
+                android:name="com.google.android.gms.auth.api.signin.CLIENT_ID"
+                android:value="@string/google_client_id" /> <!-- Client ID for Google Sign-In -->
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

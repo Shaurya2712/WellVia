@@ -21,7 +21,7 @@ class SelectAuthController extends GetxController {
   var currentPage = 0.obs;  // ← this is important
 
   void navigateToLogin(){
-
+    Get.toNamed(AppRoutes.login);
   }
 
   void navigateToSignUp(){

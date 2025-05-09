@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "287266336986",
+    "project_id": "wellvia",
+    "storage_bucket": "wellvia.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:287266336986:android:50486a74566a1db39d75e3",
+        "android_client_info": {
+          "package_name": "com.app.wellvia.wellvia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvfNKLI3Q13ch8BYosG2qsAXMywmO_M1k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

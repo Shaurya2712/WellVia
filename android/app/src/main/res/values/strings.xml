@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Store your API Key here -->
+    <string name="google_api_key">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</string>
+    <!-- Store your OAuth2 Client ID here -->
+    <string name="google_client_id">681254963307-nmbgmepco6q84itqvehsuc9ercnkgtjc.apps.googleusercontent.com</string>
+</resources>
