@@ -18,7 +18,7 @@ void main() async {
   print("App: Global services initialized");
   
   runApp(const MyApp());
-  print("App: MyApp started");
+  print("App: MyApp started")
 }
 
 // This function helps you organize global initializations
