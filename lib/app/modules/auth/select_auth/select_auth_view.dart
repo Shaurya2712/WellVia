@@ -32,7 +32,7 @@ class SelectAuthView extends GetView<SelectAuthController> {
 
                 // Logo
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 13),
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: Image.asset(
                     'assets/images/Wellvia-Health-Final-Logo.png',
                     height: size.height * 0.2,

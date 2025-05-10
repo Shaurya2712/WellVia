@@ -14,6 +14,18 @@ import '../modules/auth/login/login_view.dart';
 import 'app_routes.dart';
 import 'package:wellvia/app/core/utils/global_widgets/work_in_progress.dart';
 import 'package:wellvia/main.dart';
+import '../modules/doctor_consultation/doctor_consultation_binding.dart';
+import '../modules/doctor_consultation/doctor_consultation_view.dart';
+import '../modules/lab_test/lab_test_binding.dart';
+import '../modules/lab_test/lab_test_view.dart';
+import '../modules/book_consultation/book_consultation_binding.dart';
+import '../modules/book_consultation/book_consultation_view.dart';
+import '../modules/book_appointment/book_appointment_binding.dart';
+import '../modules/book_appointment/book_appointment_view.dart';
+import '../modules/book_payment/book_payment_binding.dart';
+import '../modules/book_payment/book_payment_view.dart';
+import '../modules/payment_summary/payment_summary_binding.dart';
+import '../modules/payment_summary/payment_summary_view.dart';
 
 class AppPages {
   static final routes = [
@@ -52,6 +64,42 @@ class AppPages {
       page: () => const LoginView(),
       binding: LoginBinding(),
       transition: Transition.fade,
+    ),
+    GetPage(
+      name: '/doctor-consultation',
+      page: () => const DoctorConsultationView(),
+      binding: DoctorConsultationBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: '/lab-test',
+      page: () => const LabTestView(),
+      binding: LabTestBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: '/book-consultation',
+      page: () => const BookConsultationView(),
+      binding: BookConsultationBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: '/book-appointment',
+      page: () => const BookAppointmentView(),
+      binding: BookAppointmentBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: '/book-payment',
+      page: () => const BookPaymentView(),
+      binding: BookPaymentBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: '/payment-summary',
+      page: () => const PaymentSummaryView(),
+      binding: PaymentSummaryBinding(),
+      transition: Transition.rightToLeft,
     ),
   ];
 }

@@ -2,7 +2,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="WellVia Health"
+        android:label="Wellvia Health"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

@@ -10,358 +10,361 @@ class SignUpView extends GetView<SignUpController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   leading: IconButton(
-      //     icon: const Icon(Icons.arrow_back_ios, color: Colors.black87),
-      //     onPressed: () => Get.back(),
-      //   ),
-      //   title: Text(
-      //     'signup_title'.tr,
-      //     style: const TextStyle(
-      //       fontWeight: FontWeight.w700,
-      //       fontSize: 25,
-      //       color: Colors.black87,
-      //     ),
-      //   ),
-      //   centerTitle: false,
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      // ),
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header
-              Text(
-                'Create Account',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+    return WillPopScope(
+      onWillPop: () async {
+        Get.offAllNamed('/select-auth');
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Back Button and Header
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back_ios, color: Colors.black87),
+                      onPressed: () => Get.offAllNamed('/select-auth'),
+                    ),
+                    const SizedBox(width: 8),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Create Account',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        Text(
+                          'Sign up to get started',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ),
-              Text(
-                'Sign up to get started',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[600],
-                ),
-              ),
-              const SizedBox(height: 16),
+                const SizedBox(height: 16),
 
-              // Name Input
-              Text(
-                'signup_enter_name'.tr,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black87,
+                // Name Input
+                Text(
+                  'signup_enter_name'.tr,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              Obx(() => TextFormField(
-                onChanged: (value) {
-                  controller.nameTouched.value = true;
-                  controller.name.value = value;
-                },
-                decoration: InputDecoration(
-                  hintText: 'signup_hint_name'.tr,
-                  hintStyle: TextStyle(color: Colors.grey[400]),
-                  prefixIcon: Icon(Icons.person, color: Colors.grey[600]),
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
+                const SizedBox(height: 8),
+                Obx(() => TextFormField(
+                  onChanged: (value) {
+                    controller.nameTouched.value = true;
+                    controller.name.value = value;
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'signup_hint_name'.tr,
+                    hintStyle: TextStyle(color: Colors.grey[400]),
+                    prefixIcon: Icon(Icons.person, color: Colors.grey[600]),
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: Colors.grey[300]!, width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Color(0xFFed6b87), width: 2),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Colors.red, width: 1),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Colors.red, width: 2),
+                    ),
+                    errorText: controller.nameTouched.value && !controller.isNameValid
+                        ? 'signup_error_name'.tr
+                        : null,
                   ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.grey[300]!, width: 1),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: Color(0xFFed6b87), width: 2),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: Colors.red, width: 1),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: Colors.red, width: 2),
-                  ),
-                  errorText: controller.nameTouched.value && !controller.isNameValid
-                      ? 'signup_error_name'.tr
-                      : null,
-                ),
-              )),
-              const SizedBox(height: 16),
+                )),
+                const SizedBox(height: 16),
 
-              // Mobile Number Input with Fixed +91
-              Text(
-                'signup_enter_mobile'.tr,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black87,
+                // Mobile Number Input with Fixed +91
+                Text(
+                  'signup_enter_mobile'.tr,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              Obx(() => TextFormField(
-                maxLength: 10,
-                onChanged: (value) {
-                  controller.mobileTouched.value = true;
-                  controller.mobileNumber.value = value;
-                },
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                  hintText: 'signup_hint_mobile'.tr,
-                  hintStyle: TextStyle(color: Colors.grey[400]),
-                  prefixIcon: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16, right: 8),
-                        child: Icon(Icons.phone, size: 20, color: Colors.grey[600]),
+                const SizedBox(height: 8),
+                Obx(() => TextFormField(
+                  maxLength: 10,
+                  onChanged: (value) {
+                    controller.mobileTouched.value = true;
+                    controller.mobileNumber.value = value;
+                  },
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    hintText: 'signup_hint_mobile'.tr,
+                    hintStyle: TextStyle(color: Colors.grey[400]),
+                    prefixIcon: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16, right: 8),
+                          child: Icon(Icons.phone, size: 20, color: Colors.grey[600]),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: Text(
+                            '+91',
+                            style: TextStyle(fontSize: 14, color: Colors.grey[800]),
+                          ),
+                        ),
+                      ],
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: Colors.grey[300]!, width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Color(0xFFed6b87), width: 2),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Colors.red, width: 1),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Colors.red, width: 2),
+                    ),
+                    errorText: controller.mobileTouched.value && !controller.isMobileNumberValid
+                        ? 'signup_error_mobile'.tr
+                        : null,
+                  ),
+                )),
+
+                // Terms and Conditions
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Obx(() => AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 200),
+                      child: Checkbox(
+                        key: ValueKey<bool>(controller.termsAccepted.value),
+                        value: controller.termsAccepted.value,
+                        onChanged: (bool? value) => controller.termsAccepted.value = value ?? false,
+                        activeColor: const Color(0xFFed6b87),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8),
-                        child: Text(
-                          '+91',
-                          style: TextStyle(fontSize: 14, color: Colors.grey[800]),
+                    )),
+                    Expanded(
+                      child: RichText(
+                        text: TextSpan(
+                          style: TextStyle(color: Colors.grey[600], fontSize: 13),
+                          children: [
+                            TextSpan(text: 'signup_terms_one'.tr),
+                            TextSpan(
+                              text: 'signup_terms_two'.tr,
+                              style: const TextStyle(
+                                color: Color(0xFFed6b87),
+                                fontWeight: FontWeight.w600,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  print("Terms of Service clicked");
+                                },
+                            ),
+                            TextSpan(text: 'signup_terms_three'.tr),
+                            TextSpan(
+                              text: 'signup_terms_four'.tr,
+                              style: const TextStyle(
+                                color: Color(0xFFed6b87),
+                                fontWeight: FontWeight.w600,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  print("Privacy Policy clicked");
+                                },
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.grey[300]!, width: 1),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: Color(0xFFed6b87), width: 2),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: Colors.red, width: 1),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: Colors.red, width: 2),
-                  ),
-                  errorText: controller.mobileTouched.value && !controller.isMobileNumberValid
-                      ? 'signup_error_mobile'.tr
-                      : null,
-                ),
-              )),
-
-              // Terms and Conditions
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Obx(() => AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 200),
-                    child: Checkbox(
-                      key: ValueKey<bool>(controller.termsAccepted.value),
-                      value: controller.termsAccepted.value,
-                      onChanged: (bool? value) => controller.termsAccepted.value = value ?? false,
-                      activeColor: const Color(0xFFed6b87),
                     ),
-                  )),
-                  Expanded(
-                    child: RichText(
-                      text: TextSpan(
-                        style: TextStyle(color: Colors.grey[600], fontSize: 13),
-                        children: [
-                          TextSpan(text: 'signup_terms_one'.tr),
-                          TextSpan(
-                            text: 'signup_terms_two'.tr,
-                            style: const TextStyle(
-                              color: Color(0xFFed6b87),
-                              fontWeight: FontWeight.w600,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                print("Terms of Service clicked");
-                              },
-                          ),
-                          TextSpan(text: 'signup_terms_three'.tr),
-                          TextSpan(
-                            text: 'signup_terms_four'.tr,
-                            style: const TextStyle(
-                              color: Color(0xFFed6b87),
-                              fontWeight: FontWeight.w600,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                print("Privacy Policy clicked");
-                              },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-
-              // Sign Up Button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: controller.signUp,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryPink ,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    elevation: 2,
-                    shadowColor: Colors.black26,
-                  ),
-                  child: Text(
-                    'signup_button'.tr,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 12),
+                const SizedBox(height: 30),
 
-              // Already Have an Account
-              Center(
-                child: RichText(
-                  text: TextSpan(
-                    style: TextStyle(fontSize: 14, color: Colors.grey[800]),
-                    children: [
-                      TextSpan(text: 'signup_have_account_prefix'.tr),
-                      TextSpan(
-                        text: 'signup_have_account_action'.tr,
-                        style:  TextStyle(
-                          color: AppColors.primaryPink ,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Get.toNamed('/login');
-                          },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-
-              // Divider
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Divider(color: Colors.grey[300]),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                // Sign Up Button
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: controller.signUp,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primaryPink ,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      elevation: 2,
+                      shadowColor: Colors.black26,
+                    ),
                     child: Text(
-                      'signup_or'.tr,
-                      style: TextStyle(
+                      'signup_button'.tr,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                        color: Colors.grey[600],
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Divider(color: Colors.grey[300]),
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 20),
 
-              const SizedBox(height: 16),
-
-              // Google Sign Up
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
-                  onPressed: () => controller.signupWithSocial('google'),
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: Colors.grey[300]!),
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    backgroundColor: Colors.white,
-                    elevation: 1,
-                  ),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 16),
-                          child: Image.asset('assets/images/google_icon.png', height: 18, width: 18),
+                // Already Have an Account
+                Center(
+                  child: RichText(
+                    text: TextSpan(
+                      style: TextStyle(fontSize: 14, color: Colors.grey[800]),
+                      children: [
+                        TextSpan(text: 'signup_have_account_prefix'.tr),
+                        TextSpan(
+                          text: 'signup_have_account_action'.tr,
+                          style:  TextStyle(
+                            color: AppColors.primaryPink ,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Get.toNamed('/login');
+                            },
                         ),
-                      ),
-                      Text(
-                        'signup_google'.tr,
-                        style: TextStyle(
-                          color: Colors.grey[800],
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 12),
+                const SizedBox(height: 20),
 
-              // Facebook Sign Up
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
-                  onPressed: () => controller.signupWithSocial('facebook'),
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: Colors.grey[300]!),
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    backgroundColor: Colors.white,
-                    elevation: 1,
-                  ),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 16),
-                          child: Image.asset('assets/images/facebook_icon.png', height: 18, width: 18),
-                        ),
-                      ),
-                      Text(
-                        'signup_facebook'.tr,
+                // Divider
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Divider(color: Colors.grey[300]),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Text(
+                        'signup_or'.tr,
                         style: TextStyle(
-                          color: Colors.grey[800],
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                          color: Colors.grey[600],
                         ),
                       ),
-                    ],
+                    ),
+                    Expanded(
+                      child: Divider(color: Colors.grey[300]),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 20),
+
+                // Google Sign Up
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton(
+                    onPressed: () => controller.signupWithSocial('google'),
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Colors.grey[300]!),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      backgroundColor: Colors.white,
+                      elevation: 1,
+                    ),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 16),
+                            child: Image.asset('assets/images/google_icon.png', height: 18, width: 18),
+                          ),
+                        ),
+                        Text(
+                          'signup_google'.tr,
+                          style: TextStyle(
+                            color: Colors.grey[800],
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 12),
+
+                // Facebook Sign Up
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton(
+                    onPressed: () => controller.signupWithSocial('facebook'),
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Colors.grey[300]!),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      backgroundColor: Colors.white,
+                      elevation: 1,
+                    ),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 16),
+                            child: Image.asset('assets/images/facebook_icon.png', height: 18, width: 18),
+                          ),
+                        ),
+                        Text(
+                          'signup_facebook'.tr,
+                          style: TextStyle(
+                            color: Colors.grey[800],
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

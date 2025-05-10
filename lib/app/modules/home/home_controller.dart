@@ -20,8 +20,36 @@ class HomeController extends GetxController {
   var currentWhyWellviaIndex = 0.obs;
   var currentFaqIndex = 0.obs;
   var selectedEmergencyIndex = 0.obs; // Track selected emergency category
-  var selectedServiceIndex = 0.obs; // Track selected service
+  var selectedServiceIndex = (-1).obs; // Track selected service, default none selected
   var selectedCategoryIndex = 0.obs; // Track selected category
+  
+  // New observables for lab reports, packages, and health conditions
+  var labReports = <LabReport>[].obs;
+  var recommendedPackages = <RecommendedPackage>[].obs;
+  var healthConditions = <HealthCondition>[].obs;
+  var currentLabReportIndex = 0.obs;
+  var currentPackageIndex = 0.obs;
+  var currentHealthConditionIndex = 0.obs;
+  // Track carousel index for each condition
+  var currentTestPackageIndices = <int>[].obs;
+
+  var doctorCategories = <String>[ // Add some example categories
+    'Cardiologist',
+    'Dermatologist',
+    'Pediatrician',
+    'General Physician',
+    'Gynecologist',
+    'Orthopedic',
+    'ENT Specialist',
+    'Psychiatrist',
+    'Dentist',
+    'Neurologist',
+    'Oncologist',
+    'Urologist',
+    'Gastroenterologist',
+    'Pulmonologist',
+    'Endocrinologist',
+  ];
 
   @override
   void onInit() {
@@ -157,6 +185,102 @@ class HomeController extends GetxController {
       ),
     ];
 
+    // Add sample data for new sections
+    labReports.value = [
+      LabReport(
+        name: 'Complete Blood Count',
+        type: 'Blood Test',
+        date: '15 Mar 2024',
+        price: '1200',
+        rating: 4.5,
+        imageUrl: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef',
+      ),
+      LabReport(
+        name: 'Lipid Profile',
+        type: 'Blood Test',
+        date: '10 Mar 2024',
+        price: '1500',
+        rating: 4.7,
+        imageUrl: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef',
+      ),
+    ];
+
+    recommendedPackages.value = [
+      RecommendedPackage(
+        name: 'Full Body Checkup',
+        description: 'Complete health assessment',
+        price: '4999',
+        rating: 4.8,
+        imageUrl: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef',
+      ),
+      RecommendedPackage(
+        name: 'Women\'s Health Package',
+        description: 'Comprehensive women\'s health check',
+        price: '3999',
+        rating: 4.6,
+        imageUrl: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef',
+      ),
+    ];
+
+    healthConditions.value = [
+      HealthCondition(
+        name: 'Diabetes',
+        testPackages: [
+          HealthTestPackage(
+            title: 'Lipid Profile Tests - Comprehensive',
+            subtitle: 'Includes 15 Tests',
+            price: '2000',
+            discount: '70% OFF',
+            details: 'Comprehensive lipid profile for diabetes management.',
+          ),
+          HealthTestPackage(
+            title: 'HbA1c Test',
+            subtitle: 'Includes 1 Test',
+            price: '500',
+            discount: '20% OFF',
+            details: 'Glycated hemoglobin for long-term glucose control.',
+          ),
+        ],
+      ),
+      HealthCondition(
+        name: 'Hypertension',
+        testPackages: [
+          HealthTestPackage(
+            title: 'Kidney Function Test',
+            subtitle: 'Includes 10 Tests',
+            price: '1800',
+            discount: '50% OFF',
+            details: 'Assess kidney health for hypertension.',
+          ),
+        ],
+      ),
+      HealthCondition(
+        name: 'Malaria',
+        testPackages: [
+          HealthTestPackage(
+            title: 'Malaria Antigen Test',
+            subtitle: 'Includes 1 Test',
+            price: '600',
+            discount: '10% OFF',
+            details: 'Detects malaria antigens in blood.',
+          ),
+        ],
+      ),
+      HealthCondition(
+        name: 'Dengue',
+        testPackages: [
+          HealthTestPackage(
+            title: 'Dengue NS1 Antigen',
+            subtitle: 'Includes 1 Test',
+            price: '700',
+            discount: '15% OFF',
+            details: 'Early detection of dengue infection.',
+          ),
+        ],
+      ),
+    ];
+    // Set default carousel indices
+    currentTestPackageIndices.value = List.generate(healthConditions.length, (_) => 0);
     isLoading(false);
   }
 
@@ -171,7 +295,13 @@ class HomeController extends GetxController {
   }
 
   void onServiceSelected(int index) {
-    if (index == 1 || index == 2 || index == 3) { // Ambulance or Facial Scan
+    if (index == 0) {
+      // Book Consultation
+      Get.toNamed('/doctor-consultation');
+    } else if (index == 1) {
+      // Lab Tests
+      Get.toNamed('/lab-test');
+    } else if (index == 2 || index == 3) { // Ambulance or Facial Scan
       final dialogController = Get.put(DialogController());
       dialogController.showFeatureDevelopmentDialog();
     } else {
@@ -203,6 +333,12 @@ class HomeController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
     Get.offAllNamed(AppRoutes.login);
+  }
+
+  void searchDoctorsOrCategories(String query) {
+    // Example: filter doctors or categories, or trigger a search
+    print('Searching for: $query');
+    // You can implement actual search/filter logic here
   }
 }
 
@@ -279,4 +415,59 @@ class Faq {
   final String answer;
 
   Faq({required this.question, required this.answer});
+}
+
+class LabReport {
+  final String name;
+  final String type;
+  final String date;
+  final String price;
+  final double rating;
+  final String imageUrl;
+
+  LabReport({
+    required this.name,
+    required this.type,
+    required this.date,
+    required this.price,
+    required this.rating,
+    required this.imageUrl,
+  });
+}
+
+class RecommendedPackage {
+  final String name;
+  final String description;
+  final String price;
+  final double rating;
+  final String imageUrl;
+
+  RecommendedPackage({
+    required this.name,
+    required this.description,
+    required this.price,
+    required this.rating,
+    required this.imageUrl,
+  });
+}
+
+class HealthCondition {
+  final String name;
+  final List<HealthTestPackage> testPackages;
+  HealthCondition({required this.name, required this.testPackages});
+}
+
+class HealthTestPackage {
+  final String title;
+  final String subtitle;
+  final String price;
+  final String discount;
+  final String details;
+  HealthTestPackage({
+    required this.title,
+    required this.subtitle,
+    required this.price,
+    required this.discount,
+    required this.details,
+  });
 }

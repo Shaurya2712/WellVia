@@ -40,17 +40,28 @@
       - assets/images/facebook_icon.png
       - assets/images/google_icon.png
       - assets/images/Wellvia-Health-Final-Logo.png
-      - assets/icon/logo_icon_512.png
-      - assets/icon/logo_icon_1024.png
+      - assets/icon/logo/logo_icon_512.png
+      - assets/icon/logo/logo_icon_1024.png
+      - assets/images/profile_placeholder.png
+      - assets/icon/body_parts/brain_icon.png
+      - assets/icon/body_parts/heart_icon.png
+      - assets/icon/body_parts/kidney_icon.png
+      - assets/icon/body_parts/liver_icon.png
+      - assets/icon/body_parts/lung_icon.png
+      - assets/icon/body_parts/pancreas_icon.png
+      - assets/icon/body_parts/stomach_icon.png
+      - assets/images/doc_img_1.jpg
+      - assets/images/doc_img_2.jpg
+      - assets/images/doc_img_3.jpg
 
   flutter_launcher_icons:
     android: "launcher_icon"
     ios: true
-    image_path_android: "assets/icon/logo_icon_512.png"
-    image_path_ios: "assets/icon/logo_icon_1024.png"
+    image_path_android: "assets/icon/logo/logo_icon_512.png"
+    image_path_ios: "assets/icon/logo/logo_icon_1024.png"
     min_sdk_android: 21
     adaptive_icon_background: "#FFFFFF"
-    adaptive_icon_foreground: "assets/icon/logo_icon_512.png"
+    adaptive_icon_foreground: "assets/icon/logo/logo_icon_512.png"
 
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/to/resolution-aware-images
