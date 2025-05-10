@@ -58,68 +58,7 @@ class HomeView extends GetView<HomeController> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            // Show logout confirmation dialog
-                            Get.dialog(
-
-                              Dialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                backgroundColor: AppColors.white,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(20),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(Icons.logout, color: Colors.redAccent, size: 50),
-                                      const SizedBox(height: 16),
-                                      Text(
-                                        'Logout',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black87,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Text(
-                                        'Are you sure you want to logout?',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(color: Colors.black54),
-                                      ),
-                                      const SizedBox(height: 24),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          OutlinedButton(
-                                            onPressed: () => Get.back(),
-                                            style: OutlinedButton.styleFrom(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(12),
-                                              ),
-                                            ),
-                                            child: Text('Cancel'),
-                                          ),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              Get.back();
-                                              controller.logout();
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.redAccent,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(12),
-                                              ),
-                                            ),
-                                            child: Text('Logout', style: TextStyle(color: AppColors.white),),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
+                            Get.toNamed('/profile');
                           },
                           child: Obx(() {
                             if (controller.isLoading.value) {
@@ -270,7 +209,11 @@ class HomeView extends GetView<HomeController> {
                         final service = entry.value;
                         return GestureDetector(
                           onTap: () {
-                            controller.onServiceSelected(index);
+                            if (service.title.toLowerCase().contains('lab')) {
+                              Get.toNamed('/health-checkup');
+                            } else {
+                              controller.onServiceSelected(index);
+                            }
                           },
                           child: Obx(() {
                             final isSelected = controller.selectedServiceIndex.value == index;

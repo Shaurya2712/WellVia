@@ -26,6 +26,24 @@ import '../modules/book_payment/book_payment_binding.dart';
 import '../modules/book_payment/book_payment_view.dart';
 import '../modules/payment_summary/payment_summary_binding.dart';
 import '../modules/payment_summary/payment_summary_view.dart';
+import '../modules/profile/profile_view.dart';
+import '../modules/profile/profile_binding.dart';
+import '../modules/health_checkup/health_checkup_view.dart';
+import '../modules/health_checkup/health_checkup_binding.dart';
+import '../modules/add_member/add_member_view.dart';
+import '../modules/add_member/add_member_binding.dart';
+import '../modules/edit_profile/edit_profile_view.dart';
+import '../modules/edit_profile/edit_profile_binding.dart';
+import '../modules/saved_addresses/saved_addresses_view.dart';
+import '../modules/saved_addresses/saved_addresses_binding.dart';
+import '../modules/active_orders/active_orders_view.dart';
+import '../modules/active_orders/active_orders_binding.dart';
+import '../modules/past_orders/past_orders_view.dart';
+import '../modules/past_orders/past_orders_binding.dart';
+import '../modules/invoices/invoices_view.dart';
+import '../modules/invoices/invoices_binding.dart';
+import '../modules/reports/reports_view.dart';
+import '../modules/reports/reports_binding.dart';
 
 class AppPages {
   static final routes = [
@@ -91,7 +109,7 @@ class AppPages {
     ),
     GetPage(
       name: '/book-payment',
-      page: () => const BookPaymentView(),
+      page: () =>  BookPaymentView(),
       binding: BookPaymentBinding(),
       transition: Transition.rightToLeft,
     ),
@@ -99,6 +117,60 @@ class AppPages {
       name: '/payment-summary',
       page: () => const PaymentSummaryView(),
       binding: PaymentSummaryBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: '/profile',
+      page: () => const ProfileView(),
+      binding: ProfileBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: '/health-checkup',
+      page: () => const HealthCheckupView(),
+      binding: HealthCheckupBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: '/add-member',
+      page: () => const AddMemberView(),
+      binding: AddMemberBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: '/edit-profile',
+      page: () => const EditProfileView(),
+      binding: EditProfileBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: '/saved-addresses',
+      page: () => const SavedAddressesView(),
+      binding: SavedAddressesBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: '/active-orders',
+      page: () => const ActiveOrdersView(),
+      binding: ActiveOrdersBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: '/past-orders',
+      page: () => const PastOrdersView(),
+      binding: PastOrdersBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: '/invoices',
+      page: () => const InvoicesView(),
+      binding: InvoicesBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: '/reports',
+      page: () => const ReportsView(),
+      binding: ReportsBinding(),
       transition: Transition.rightToLeft,
     ),
   ];
